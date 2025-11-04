@@ -84,7 +84,8 @@ double calcularPromedio(List<double> valores)
     {
         total += val;
     }
-    return total / valores.Count;
+    total = total / valores.Count;
+    return Math.Round(total, 2);
 }
 
 
@@ -130,7 +131,7 @@ string calcularMayorPromedio(double prom1, double prom2, double prom3)
 double inversionUnAño(double capitalInicial, double promedioAnual) {
     double total;
     total = capitalInicial * (1 + promedioAnual / 100);
-    return total;
+    return Math.Round(total, 2);
 }
 
 double interesPorTrimestres(double capitalInicial, double promedioAnual)
@@ -142,7 +143,7 @@ double interesPorTrimestres(double capitalInicial, double promedioAnual)
         total *= (1 + promedioTrimestre  / 100);
     }
     
-    return total;
+    return Math.Round(total, 2);
 }
 
 double interesPorMes(double capitalInicial, double promedioAnual)
@@ -154,5 +155,5 @@ double interesPorMes(double capitalInicial, double promedioAnual)
         total *= (1 + promedioTrimestre / 100);
     }
 
-    return total;
+    return Math.Round(total, 2);
 }
