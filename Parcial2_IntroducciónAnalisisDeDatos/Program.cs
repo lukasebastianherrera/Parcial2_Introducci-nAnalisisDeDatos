@@ -2,58 +2,106 @@
 using System.Globalization;
 using System.Numerics;
 
-double capitalInicial = 850000;
+double capitalInicial;
 
 List<double> valoresBancoprovincia = new List<double>();
 List<double> valoresBancoNacion = new List<double>();
 List<double> valoresBancoHipotecario = new List<double>();
 
-cargarPlazosFijos("Banco Provincia", valoresBancoprovincia);
-cargarPlazosFijos("Banco Nación", valoresBancoNacion);
-cargarPlazosFijos("Banco Hipotecario", valoresBancoHipotecario);
+bool parar = false;
+bool otraVuelta = false;
+while (!parar) {
 
-Console.Clear();
-// Promedios
+    /// Reiniciar variables
+    otraVuelta = false;
+    Console.Clear();
 
-double promedioBancoProvincia = calcularPromedio(valoresBancoprovincia);
-double promedioBancoNacion = calcularPromedio(valoresBancoNacion);
-double promedioBancoHipotecario = calcularPromedio(valoresBancoHipotecario);
-
-Console.WriteLine("Promedio Tasa Anual Banco Provincia " + promedioBancoProvincia + "%");
-Console.WriteLine("Promedio Tasa Anual Banco Nación " + promedioBancoNacion  + "%");
-Console.WriteLine("Promedio Tasa Anual Banco Hipotecario " + promedioBancoHipotecario + "%");
-string mayorPromedio = calcularMayorPromedio(calcularPromedio(valoresBancoprovincia), calcularPromedio(valoresBancoNacion), calcularPromedio(valoresBancoHipotecario));
-Console.WriteLine("El banco con mayor Rendimiento en promedio: " + mayorPromedio);
-Console.WriteLine("");
-Console.WriteLine("Interes por un año completo con la tasa anual promedio");
-
-// Inversión por un año completo con la tasa anual promedio
-
-Console.WriteLine("Total Banco Provincia: " + "$" + inversionUnAño(capitalInicial, promedioBancoProvincia) + "| Promedio Tasa Anual: " + promedioBancoProvincia + "%");
-Console.WriteLine("Total Banco Nación: " + "$" + inversionUnAño(capitalInicial, promedioBancoNacion) + "| Promedio Tasa Anual: " + promedioBancoNacion + "%");
-Console.WriteLine("Total Banco Hipotecario: " + "$" + inversionUnAño(capitalInicial, promedioBancoHipotecario) + "| Promedio Tasa Anual: " + promedioBancoHipotecario + "%");
-
-Console.WriteLine("");
-Console.WriteLine("Intereses por Trimestres, Calculando el Rendimiento y Reinvirtiendo El Capital Ganado al Finalizar Cada Trimestre.");
-// Inversión por trimestres, calculando el rendimiento y reinvirtiendo el capital ganado al finalizar cada trimestre.
-
-Console.WriteLine("Total Banco Provincia: " + "$" + interesPorTrimestres(capitalInicial, promedioBancoProvincia) + "| Promedio Tasa Anual: " + promedioBancoProvincia + "%");
-Console.WriteLine("Total Banco Nación: " + "$" + interesPorTrimestres(capitalInicial, promedioBancoNacion) + "| Promedio Tasa Anual: " + promedioBancoNacion + "%");
-Console.WriteLine("Total Banco Hipotecario: " + "$" + interesPorTrimestres(capitalInicial, promedioBancoHipotecario) + "| Promedio Tasa Anual: " + promedioBancoHipotecario + "%");
-
-Console.WriteLine("");
-Console.WriteLine("Intereses por Meses, Calculando el Rendimiento y Reinvirtiendo El Capital Ganado al Finalizar Cada Mes.");
-// inversión por meses, calculando el rendimiento y reinvirtiendo el capital ganado al finalizar cada mes.
-
-Console.WriteLine("Total Banco Provincia: " + "$" + interesPorMes(capitalInicial, promedioBancoProvincia) + "| Promedio Tasa Anual: " + promedioBancoProvincia + "%";
-Console.WriteLine("Total Banco Nación: " + "$" + interesPorMes(capitalInicial, promedioBancoNacion) + "| Promedio Tasa Anual: " + promedioBancoNacion + "%");
-Console.WriteLine("Total Banco Hipotecario: " + "$" + interesPorMes(capitalInicial, promedioBancoHipotecario) + "| Promedio Tasa Anual: " + promedioBancoHipotecario + "%");
+    /// INGRESAR  CAPITAL INICIAL A INVERTIR
+    Console.WriteLine("Ingrese el capital inicial a invertir:");
+    string capitalInput = Console.ReadLine();
+    capitalInicial =  double.Parse(capitalInput.Replace(",", "."), CultureInfo.InvariantCulture);
 
 
+    /// CARGAR PLAZOS FIJOS
+    Console.Clear();
+    cargarPlazosFijos("Banco Provincia", valoresBancoprovincia);
+    Console.Clear();
+    cargarPlazosFijos("Banco Nación", valoresBancoNacion);
+    Console.Clear();
+    cargarPlazosFijos("Banco Hipotecario", valoresBancoHipotecario);
+
+    Console.Clear();
+    // Promedios
+
+    double promedioBancoProvincia = calcularPromedio(valoresBancoprovincia);
+    double promedioBancoNacion = calcularPromedio(valoresBancoNacion);
+    double promedioBancoHipotecario = calcularPromedio(valoresBancoHipotecario);
+
+
+    Console.WriteLine("Capital inicial :" + capitalInicial);
+    Console.WriteLine("");
+    Console.WriteLine("Promedio Tasa Anual Banco Provincia " + promedioBancoProvincia + "%");
+    Console.WriteLine("Promedio Tasa Anual Banco Nación " + promedioBancoNacion  + "%");
+    Console.WriteLine("Promedio Tasa Anual Banco Hipotecario " + promedioBancoHipotecario + "%");
+    string mayorPromedio = calcularMayorPromedio(calcularPromedio(valoresBancoprovincia), calcularPromedio(valoresBancoNacion), calcularPromedio(valoresBancoHipotecario));
+    Console.WriteLine("El banco con mayor Rendimiento en promedio: " + mayorPromedio);
+    Console.WriteLine("");
+    Console.WriteLine("Interes por un año completo con la tasa anual promedio");
+
+    // Inversión por un año completo con la tasa anual promedio
+
+    Console.WriteLine("Total Banco Provincia: " + "$" + inversionUnAño(capitalInicial, promedioBancoProvincia) + "| Promedio Tasa Anual: " + promedioBancoProvincia + "%");
+    Console.WriteLine("Total Banco Nación: " + "$" + inversionUnAño(capitalInicial, promedioBancoNacion) + "| Promedio Tasa Anual: " + promedioBancoNacion + "%");
+    Console.WriteLine("Total Banco Hipotecario: " + "$" + inversionUnAño(capitalInicial, promedioBancoHipotecario) + "| Promedio Tasa Anual: " + promedioBancoHipotecario + "%");
+
+    Console.WriteLine("");
+    Console.WriteLine("Intereses por Trimestres, Calculando el Rendimiento y Reinvirtiendo El Capital Ganado al Finalizar Cada Trimestre.");
+    // Inversión por trimestres, calculando el rendimiento y reinvirtiendo el capital ganado al finalizar cada trimestre.
+
+    Console.WriteLine("Total Banco Provincia: " + "$" + interesPorTrimestres(capitalInicial, promedioBancoProvincia) + "| Promedio Tasa Anual: " + promedioBancoProvincia + "%");
+    Console.WriteLine("Total Banco Nación: " + "$" + interesPorTrimestres(capitalInicial, promedioBancoNacion) + "| Promedio Tasa Anual: " + promedioBancoNacion + "%");
+    Console.WriteLine("Total Banco Hipotecario: " + "$" + interesPorTrimestres(capitalInicial, promedioBancoHipotecario) + "| Promedio Tasa Anual: " + promedioBancoHipotecario + "%");
+
+    Console.WriteLine("");
+    Console.WriteLine("Intereses por Meses, Calculando el Rendimiento y Reinvirtiendo El Capital Ganado al Finalizar Cada Mes.");
+    // inversión por meses, calculando el rendimiento y reinvirtiendo el capital ganado al finalizar cada mes.
+
+    Console.WriteLine("Total Banco Provincia: " + "$" + interesPorMes(capitalInicial, promedioBancoProvincia) + "| Promedio Tasa Anual: " + promedioBancoProvincia + "%");
+    Console.WriteLine("Total Banco Nación: " + "$" + interesPorMes(capitalInicial, promedioBancoNacion) + "| Promedio Tasa Anual: " + promedioBancoNacion + "%");
+    Console.WriteLine("Total Banco Hipotecario: " + "$" + interesPorMes(capitalInicial, promedioBancoHipotecario) + "| Promedio Tasa Anual: " + promedioBancoHipotecario + "%");
+
+    ///  INGRESAR OTROS VALORES O PARAR
+    Console.WriteLine("");
+    while (!otraVuelta) { 
+    Console.WriteLine("¿Desea realizar otra consulta? (s/n)");
+    string seguir = Console.ReadLine();
+
+        if (seguir.ToLower() == "s")
+        {
+            valoresBancoprovincia.Clear();
+            valoresBancoNacion.Clear();
+            valoresBancoHipotecario.Clear();
+            capitalInicial = 0;
+            capitalInput = "";
+            otraVuelta = true;
+        } else if(seguir.ToLower() == "n")
+        {
+            parar = true;
+            otraVuelta = true;
+        }
+        else
+        {
+           Console.WriteLine("Opción no válida. Por favor, ingrese 's' para sí o 'n' para no.");
+
+        }
+
+    }
+}
 void cargarPlazosFijos(string nombreBanco, List<double> ValoresBanco)
 {
     for (int i = 1; i <= 3; i++)
     {
+        
         Console.WriteLine($"{nombreBanco} : Ingrese el valor histórico de los plazos fijos anuales, el {i} año anterior:");
 
         bool numeroValido = false;
@@ -157,3 +205,4 @@ double interesPorMes(double capitalInicial, double promedioAnual)
 
     return Math.Round(total, 2);
 }
+
